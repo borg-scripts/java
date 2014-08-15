@@ -7,6 +7,9 @@ module.exports = ->
     @then @download, dl.url,
       to: "/tmp/#{file}"
       checksum: @server.java.ant.download.checksum
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
 
     @then @execute, "cd /tmp; tar zxvf #{file}"
     @then @execute, "rm -rf #{@server.java.ant.install_dir}", sudo: true

@@ -9,6 +9,9 @@ module.exports = ->
     @then @download, dl.url,
       to: "/tmp/#{file}"
       checksum: dl.checksum
+      owner: 'root'
+      group: 'root'
+      mode: '0644'
 
     @then @execute, "cd /tmp; tar zxvf #{file}"
     @then @directory, @server.java.jvm_dir,
