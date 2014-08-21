@@ -12,6 +12,7 @@ module.exports = ->
       owner: 'root'
       group: 'root'
       mode: '0644'
+      sudo: true
 
     @then @execute, "cd /tmp; tar zxvf #{file}"
     @then @directory, @server.java.jvm_dir,
