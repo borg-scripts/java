@@ -16,7 +16,11 @@ module.exports = ->
     @then @execute, "rm -rf #{@server.java.ant.install_dir}", sudo: true
     @then @execute, "mv /tmp/#{dl.extracts_to}/ #{@server.java.ant.install_dir}", sudo: true
 
-    @then @setEnv, 'ANT_HOME', value: @server.java.ant.install_dir
+    @then @append_line_to_file '/etc/environment',
+      unless_find: 'ANT_HOME'
+      append: 'ANT_HOME='+@server.java.ant.install_dir
+      sudo: true
+
     @then @link, "#{@server.java.ant.install_dir}/bin/ant", target: "/usr/local/bin/ant", sudo: true
 
     @then (cb) => @execute "ant -version", @mustExit 0, cb
