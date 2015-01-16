@@ -19,4 +19,4 @@ module.exports = ->
     @then @setEnv, 'ANT_HOME', value: @server.java.ant.install_dir
     @then @link, "#{@server.java.ant.install_dir}/bin/ant", target: "/usr/local/bin/ant", sudo: true
 
-    @then (cb) => @execute "ant -version", @mustExit 0, cb
+    @then @execute "ant -version", expect: 0
