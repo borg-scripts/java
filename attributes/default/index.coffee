@@ -14,9 +14,8 @@ module.exports = ->
           checksum: 'PROVIDE-SHA256SUM-YOURSELF'
           extracts_to: 'jdk1.7.0_60'
     ant:
-      install_dir: '/opt/apache-ant-1.9.4'
-      version: 'Apache Ant(TM) version 1.9.4 compiled on April 29 2014'
+      install_dir: '/opt/apache-ant-1.9.5'
       download:
-        url: "http://mirror.cc.columbia.edu/pub/software/apache//ant/binaries/apache-ant-1.9.4-bin.tar.gz",
-        checksum: "66d3edcbb0eba11387705cd89178ffb65e55cd53f13ca35c1bb983c0f9992540"
-        extracts_to: "apache-ant-1.9.4"
+        url: "http://apache.arvixe.com//ant/binaries/apache-ant-1.9.5-bin.tar.gz"
+        checksum: "e272e057a3c32b3536ffc050a6abce20aaa08b2618f79868e3e4c9c58628aeef"
+        extracts_to: "apache-ant-1.9.5"
