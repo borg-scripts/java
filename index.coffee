@@ -3,8 +3,11 @@ path = require 'path'
 module.exports = ->
   @import __dirname, 'attributes', 'default'
 
-  @then @execute "which java", test: ({code}) =>
-    return if code is 0
+  # validate version installed matches intended version
+  @then @execute "java -version 2>&1", test: ({code, out}) =>
+    if code is 0 and out.match new RegExp(@server.java.jdk_downloads[@server.java.jdk_version].x86_64.extracts_to.substr(3))
+      return
+
     dl = @server.java.jdk_downloads[@server.java.jdk_version].x86_64
     file = path.basename dl.url
     @then @download dl.url,
@@ -31,7 +34,9 @@ module.exports = ->
       mode: '0755'
       sudo: true
 
+    @then @execute "update-alternatives --remove-all java", sudo: true, ignore_errors: true
     @then @execute "update-alternatives --install /usr/bin/java java '#{@server.java.jvm_dir}/#{@server.java.jdk_version}/bin/java' 1", sudo: true
+    @then @execute "update-alternatives --remove-all javac", sudo: true, ignore_errors: true
     @then @execute "update-alternatives --install /usr/bin/javac javac '#{@server.java.jvm_dir}/#{@server.java.jdk_version}/bin/javac' 1", sudo: true
 
     # TODO: could list more jdk binaries
